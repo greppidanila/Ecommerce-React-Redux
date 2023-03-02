@@ -17,6 +17,7 @@ const ProductImageWrapper = styled.div`
 
 const ProductImage = styled.img`
   position: absolute;
+  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
   top: 0;
   left: 0;
   height: 100%;
@@ -25,11 +26,15 @@ const ProductImage = styled.img`
 `;
 
 const ProductCard = styled.div`
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15);
+    border: none;
+    border-radius: var(--bs-card-border-radius);
 `;
 
 const ProductTitle = styled.h5`
   margin-bottom: 0;
+  margin-top: 2rem;
 `;
 
 const ProductDescription = styled.p`
@@ -43,7 +48,7 @@ const ProductPrice = styled.p`
 
 const ProductBuyButton = styled(NavLink)`
   display: block;
-  margin-top: 1rem;
+  margin-top: 2rem;
 `;
 type Product = {
     id: number;
@@ -134,8 +139,8 @@ const Products: React.FC = () => {
                                             {product.description.substring(0, 60) + "..."}
                                         </ProductDescription>
                                         <ProductPrice className="card-text lead fs-bold">${product.price}</ProductPrice>
-                                        <ProductBuyButton to={`/products/${product.id}`} className="btn btn-outline-dark">
-                                            Buy Now
+                                        <ProductBuyButton to={`/products/${product.id}`} className="btn btn-dark">
+                                            View Details
                                         </ProductBuyButton>
                                     </div>
                                 </ProductCard>
