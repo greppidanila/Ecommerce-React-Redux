@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Background from "../assets/bg.jpg";
+import Background from "../assets/bg.png";
 import Products from './Products';
 
 const Home: React.FC = () => {

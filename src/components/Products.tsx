@@ -1,55 +1,78 @@
 import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { Card, Button } from 'react-bootstrap';
+
 
 const SkeletonCol = styled.div`
   @media (min-width: 768px) {
     margin-bottom: 2rem;
   }
 `;
-const ProductImageWrapper = styled.div`
+const StyledCard = styled(Card)`
   width: 100%;
-  padding-top: 100%; /* Hace que el div sea cuadrado */
-  position: relative;
-  background-color: #fff;
+  border: none;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
 `;
 
-const ProductImage = styled.img`
-  position: absolute;
-  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: contain; /* Para que la imagen el div sin deformarse ni recortarse */
+const StyledCardImg = styled(Card.Img)`
+  height: 10rem;
+  object-fit: contain;
+  padding-top: 1.5rem;
 `;
 
-const ProductCard = styled.div`
-    margin-bottom: 2rem;
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15);
-    border: none;
-    border-radius: var(--bs-card-border-radius);
+const StyledCardBody = styled(Card.Body)`
+  padding: 1.25rem;
 `;
 
-const ProductTitle = styled.h5`
-  margin-bottom: 0;
-  margin-top: 2rem;
-`;
-
-const ProductDescription = styled.p`
-  margin-bottom: 1rem;
-`;
-
-const ProductPrice = styled.p`
+const StyledCardTitle = styled(Card.Title)`
   font-size: 1.5rem;
-  font-weight: bold;
+  font-weight: 500;
 `;
 
-const ProductBuyButton = styled(NavLink)`
-  display: block;
-  margin-top: 2rem;
+const StyledCardText = styled(Card.Text)`
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 `;
+
+const StyledButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;    
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+const StyledPrice = styled.span`
+  font-size: 1.5rem;
+  font-weight: 500;  
+  margin-right: 1rem;
+
+`;
+
+const StyledButton = styled(Button)`
+  border-radius: 1rem;
+  font-weight: 500;
+`;
+const StyledRatingWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledStar = styled.span`
+  color: #f8ce0b;
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+`;
+
+interface StyledRatingProps {
+    rating: {
+        rate: number;
+        count: number;
+    };
+}
+
+
+
 type Product = {
     id: number;
     title: string;
@@ -57,6 +80,10 @@ type Product = {
     price: number;
     category: string;
     image: string;
+    rating: {
+        rate: number;
+        count: number;
+    };
 };
 
 const Products: React.FC = () => {
@@ -105,48 +132,72 @@ const Products: React.FC = () => {
         setFilter(updatedList);
     };
 
+    const StyledRating: React.FC<StyledRatingProps> = ({ rating }) => {
+        const { rate, count } = rating;
+
+        // Redondea el valor de `rate` al número entero más cercano
+        const roundedRate = Math.round(rate);
+
+        // Crea un array de elementos `span` con las estrellas correspondientes
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            if (i <= roundedRate) {
+                stars.push(<StyledStar key={i}>&#9733;</StyledStar>);
+            } else {
+                stars.push(<StyledStar key={i}>&#9734;</StyledStar>);
+            }
+        }
+
+        return (
+            <StyledRatingWrapper>
+                {stars}
+                <span>{rate.toFixed(1)}</span>
+                <span>({count})</span>
+            </StyledRatingWrapper>
+        );
+    };
+
     const ShowProducts: React.FC = () => {
         return (
             <>
                 <div className="butttons d-flex justify-content-center mb-5 pb-5">
-                    <button className="btn btn-outline-dark me-2" onClick={() => setFilter(data)}>
+                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => setFilter(data)}>
                         All
                     </button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("men's clothing")}>
+                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("men's clothing")}>
                         Men´s Clothing
                     </button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("women's clothing")}>
+                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("women's clothing")}>
                         Women´s Clothing
                     </button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("jewelery")}>
+                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("jewelery")}>
                         Jewelery
                     </button>
-                    <button className="btn btn-outline-dark me-2" onClick={() => filterProduct("electronics")}>
+                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("electronics")}>
                         Electronic
                     </button>
                 </div>
-                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    {filter.map((product) => {
-                        return (
-                            <div className="col mb-4" key={product.id}>
-                                <ProductCard className="card h-100 text-center p-4">
-                                    <ProductImageWrapper>
-                                        <ProductImage src={product.image} alt={product.title} />
-                                    </ProductImageWrapper>
-                                    <div className="card-body">
-                                        <ProductTitle className="card-title">{product.title.substring(0, 12)}</ProductTitle>
-                                        <ProductDescription className="card-text">
-                                            {product.description.substring(0, 60) + "..."}
-                                        </ProductDescription>
-                                        <ProductPrice className="card-text lead fs-bold">${product.price}</ProductPrice>
-                                        <ProductBuyButton to={`/products/${product.id}`} className="btn btn-dark">
-                                            View Details
-                                        </ProductBuyButton>
-                                    </div>
-                                </ProductCard>
-                            </div>
-                        );
-                    })}
+                <div className="container">
+                    <div className="row">
+                        {filter.map((product) => {
+                            return (
+                                <div className="col-lg-3 col-md-6 col-sm-12 mb-4 " key={product.id}>
+                                    <StyledCard>
+                                        <StyledCardImg variant="top" src={product.image} />
+                                        <StyledCardBody>
+                                            <StyledCardTitle>{product.title.substring(0, 12)}</StyledCardTitle>
+                                            {product.rating && <StyledRating rating={product.rating} />}
+                                            <StyledCardText>{product.description.substring(0, 75) + "..."}</StyledCardText>
+                                            <StyledButtonWrapper>
+                                                <StyledPrice>${product.price}</StyledPrice>
+                                                <StyledButton to={`/products/${product.id}`} variant="primary">Add to Cart</StyledButton>
+                                            </StyledButtonWrapper>
+                                        </StyledCardBody>
+                                    </StyledCard>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
             </>
         );

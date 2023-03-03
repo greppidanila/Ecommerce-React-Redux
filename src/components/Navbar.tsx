@@ -28,11 +28,11 @@ const Navbar = () => {
                             </li>
                         </ul>
                         <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                                <button className="btn btn-outline-success" type="submit">Search</button>
+                            <input className="form-control me-2 border-0 shadow-sm" type="search" placeholder="Search" aria-label="Search"/>
+                                <button className="btn btn-dark border-0 shadow-sm" type="submit">Search</button>
                         </form>
                         <div className="button">
-                            <NavLink to="/cart" className='btn btn-outline-dark ms-2'>
+                            <NavLink to="/cart" className='btn btn-outline-dark border-0 shadow-sm ms-2'>
                                 <i className='fa fa-shopping-cart me-1'></i>
                                 Cart (0)
                             </NavLink>
