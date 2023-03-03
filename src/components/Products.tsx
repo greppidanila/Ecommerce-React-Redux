@@ -53,6 +53,18 @@ const StyledButton = styled(Button)`
   border-radius: 1rem;
   font-weight: 500;
 `;
+
+const StyledBestSeller = styled.div`
+background-color: orange; 
+color: white; 
+border-radius: 0.5rem; 
+margin-bottom: 0.5rem; 
+width: fit-content;
+padding-inline: 0.4rem;  
+display: inline-flex;
+`;
+
+
 const StyledRatingWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -151,18 +163,21 @@ const Products: React.FC = () => {
         return (
             <StyledRatingWrapper>
                 {stars}
-                <span>{rate.toFixed(1)}</span>
                 <span>({count})</span>
             </StyledRatingWrapper>
         );
     };
 
     const ShowProducts: React.FC = () => {
+        const bestSellers = data.filter((product) => product.rating.rate > 4.4);
         return (
             <>
                 <div className="butttons d-flex justify-content-center mb-5 pb-5">
                     <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => setFilter(data)}>
                         All
+                    </button>
+                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => setFilter(bestSellers)}>
+                        Best Sellers
                     </button>
                     <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("men's clothing")}>
                         Men´s Clothing
@@ -186,7 +201,15 @@ const Products: React.FC = () => {
                                         <StyledCardImg variant="top" src={product.image} />
                                         <StyledCardBody>
                                             <StyledCardTitle>{product.title.substring(0, 12)}</StyledCardTitle>
-                                            {product.rating && <StyledRating rating={product.rating} />}
+                                            {product.rating.rate > 4.4 && (
+                                                <div>
+                                                    <StyledBestSeller>
+                                                        Best Seller
+                                                    </StyledBestSeller>
+                                                    <span style={{ color: 'black', background: 'none', marginLeft: '0.5rem' }}>in {product.category}</span>
+                                                </div>
+                                            )}
+                                            <StyledRating rating={product.rating} />
                                             <StyledCardText>{product.description.substring(0, 75) + "..."}</StyledCardText>
                                             <StyledButtonWrapper>
                                                 <StyledPrice>${product.price}</StyledPrice>
