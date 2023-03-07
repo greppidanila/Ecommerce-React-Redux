@@ -42,3 +42,19 @@ Copié el diseño de la tarjeta de Bootstrap y edité los estilos para ajustarlo
 Importé la librería Link de react-router-dom.
 
 Cambié el contenido del componente return para incluir los nuevos componentes Loading y ShowProducts, y los elementos HTML necesarios para la estructura de la página.
+
+Definí una función para filtrar la lista de productos según la categoría seleccionada
+
+Definí un componente 'StyledRating' para mostrar el puntaje y la cantidad de calificaciones del producto en forma de estrellas
+
+Definí un componente 'ShowProducts' para mostrar los productos en una cuadrícula
+
+Usé la función de filtrado para mostrar todos los productos, los productos mejor vendidos y los productos de una categoría específica
+
+Mapeé los datos de cada producto en un componente de tarjeta y los mostré en la cuadrícula
+
+Definí una etiqueta de enlace para el botón 'Add to Cart' en cada tarjeta, lo que permite la navegación a una página de detalles del producto
+
+Usé los componentes 'StyledCard', 'StyledCardImg', 'StyledCardBody', 'StyledCardTitle', 'StyledCardText', 'StyledButtonWrapper', 'StyledPrice', 'StyledButton', 'StyledBestSeller', 'StyledRatingWrapper' y 'StyledStar' para dar estilo a la cuadrícula y las tarjetas
+
+PROBLEMA PARA VISUALIZAR DIV E INFO DE APP EM PRODUCT.TSX.

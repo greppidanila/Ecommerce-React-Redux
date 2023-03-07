@@ -15,7 +15,7 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
+                                <NavLink className="nav-link active fw-bold" aria-current="page" to="/">Home</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/products">Products</NavLink>
@@ -28,11 +28,10 @@ const Navbar = () => {
                             </li>
                         </ul>
                         <form className="d-flex">
-                            <input className="form-control me-2 border-0 shadow-sm" type="search" placeholder="Search" aria-label="Search"/>
-                                <button className="btn btn-dark border-0 shadow-sm" type="submit">Search</button>
+                            <input className="form-control me-2 border-0 " style={{boxShadow: "0 .125rem .25rem rgba(0,0,0,.300)"}} type="search" placeholder="Search" aria-label="Search" />
                         </form>
                         <div className="button">
-                            <NavLink to="/cart" className='btn btn-outline-dark border-0 shadow-sm ms-2'>
+                            <NavLink to="/cart" className='btn btn-outline-dark border-0  ms-2' style={{boxShadow: "0 .125rem .25rem rgba(0,0,0,.300)"}}>  
                                 <i className='fa fa-shopping-cart me-1'></i>
                                 Cart (0)
                             </NavLink>

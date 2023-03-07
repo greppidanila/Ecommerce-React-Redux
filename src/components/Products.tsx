@@ -1,80 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import styled from 'styled-components';
-import { Card, Button } from 'react-bootstrap';
-
-
-const SkeletonCol = styled.div`
-  @media (min-width: 768px) {
-    margin-bottom: 2rem;
-  }
-`;
-const StyledCard = styled(Card)`
-  width: 100%;
-  border: none;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.3);
-`;
-
-const StyledCardImg = styled(Card.Img)`
-  height: 10rem;
-  object-fit: contain;
-  padding-top: 1.5rem;
-`;
-
-const StyledCardBody = styled(Card.Body)`
-  padding: 1.25rem;
-`;
-
-const StyledCardTitle = styled(Card.Title)`
-  font-size: 1.5rem;
-  font-weight: 500;
-`;
-
-const StyledCardText = styled(Card.Text)`
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-`;
-
-const StyledButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;    
-  justify-content: space-between;
-  flex-direction: row;
-`;
-
-const StyledPrice = styled.span`
-  font-size: 1.5rem;
-  font-weight: 500;  
-  margin-right: 1rem;
-
-`;
-
-const StyledButton = styled(Button)`
-  border-radius: 1rem;
-  font-weight: 500;
-`;
-
-const StyledBestSeller = styled.div`
-background-color: orange; 
-color: white; 
-border-radius: 0.5rem; 
-margin-bottom: 0.5rem; 
-width: fit-content;
-padding-inline: 0.4rem;  
-display: inline-flex;
-`;
-
-
-const StyledRatingWrapper = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const StyledStar = styled.span`
-  color: #f8ce0b;
-  font-size: 1.25rem;
-  margin-right: 0.25rem;
-`;
+import { NavLink } from 'react-router-dom';
+import {
+    SkeletonCol,
+    StyledCard,
+    StyledCardImg,
+    StyledCardBody,
+    StyledCardTitle,
+    StyledCardText,
+    StyledButtonWrapper,
+    StyledPrice,
+    StyledButton,
+    StyledBestSeller,
+    StyledRatingWrapper,
+    StyledStar
+} from './ProductsStyles';
 
 interface StyledRatingProps {
     rating: {
@@ -82,8 +22,6 @@ interface StyledRatingProps {
         count: number;
     };
 }
-
-
 
 type Product = {
     id: number;
@@ -100,7 +38,7 @@ type Product = {
 
 const Products: React.FC = () => {
     const [data, setData] = useState<Product[]>([]);
-    const [filter, setFilter] = useState<Product[]>([]);
+    const [filter, setFilter] = useState<Product[]>([]);    
     const [loading, setLoading] = useState<boolean>(false);
     let componentMounted = true;
 
@@ -114,6 +52,7 @@ const Products: React.FC = () => {
                 setLoading(false);
             }
             return () => {
+                // eslint-disable-next-line react-hooks/exhaustive-deps
                 componentMounted = false;
             };
         };
@@ -123,43 +62,28 @@ const Products: React.FC = () => {
     const Loading: React.FC = () => {
         return (
             <>
-                <SkeletonCol className="col-md-3">
-                    <Skeleton height={350} />
-                </SkeletonCol>
-                <SkeletonCol className="col-md-3">
-                    <Skeleton height={350} />
-                </SkeletonCol>
-                <SkeletonCol className="col-md-3">
-                    <Skeleton height={350} />
-                </SkeletonCol>
-                <SkeletonCol className="col-md-3">
-                    <Skeleton height={350} />
-                </SkeletonCol>
+                {[...Array(4)].map((_, index) => (
+                    <SkeletonCol className="col-md-3" key={index}>
+                        <Skeleton height={350} />
+                    </SkeletonCol>
+                ))}
             </>
         );
     };
 
     const filterProduct = (cat: string) => {
-        const updatedList = data.filter((x) => x.category === cat);
+        const updatedList = data.filter(({ category }) => category === cat);
         setFilter(updatedList);
     };
 
-    const StyledRating: React.FC<StyledRatingProps> = ({ rating }) => {
-        const { rate, count } = rating;
 
-        // Redondea el valor de `rate` al número entero más cercano
+    const StyledRating: React.FC<StyledRatingProps> = ({ rating: { rate, count } }) => {
         const roundedRate = Math.round(rate);
-
-        // Crea un array de elementos `span` con las estrellas correspondientes
-        const stars = [];
-        for (let i = 1; i <= 5; i++) {
-            if (i <= roundedRate) {
-                stars.push(<StyledStar key={i}>&#9733;</StyledStar>);
-            } else {
-                stars.push(<StyledStar key={i}>&#9734;</StyledStar>);
-            }
-        }
-
+        const stars = Array.from({ length: 5 }, (_, index) => (
+            <StyledStar key={index} style={{ color: index < roundedRate ? 'gold' : 'gray' }}>
+                &#9733;
+            </StyledStar>
+        ));
         return (
             <StyledRatingWrapper>
                 {stars}
@@ -179,18 +103,11 @@ const Products: React.FC = () => {
                     <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => setFilter(bestSellers)}>
                         Best Sellers
                     </button>
-                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("men's clothing")}>
-                        Men´s Clothing
-                    </button>
-                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("women's clothing")}>
-                        Women´s Clothing
-                    </button>
-                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("jewelery")}>
-                        Jewelery
-                    </button>
-                    <button className="btn btn-outline-dark me-2 border-0 shadow-sm" onClick={() => filterProduct("electronics")}>
-                        Electronic
-                    </button>
+                    {['men\'s clothing', 'women\'s clothing', 'jewelery', 'electronics'].map((category) => (
+                        <button className="btn btn-outline-dark me-2 border-0 shadow-sm" key={category} onClick={() => filterProduct(category)}>
+                            {category.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                        </button>
+                    ))}
                 </div>
                 <div className="container">
                     <div className="row">
@@ -200,20 +117,23 @@ const Products: React.FC = () => {
                                     <StyledCard>
                                         <StyledCardImg variant="top" src={product.image} />
                                         <StyledCardBody>
-                                            <StyledCardTitle>{product.title.substring(0, 12)}</StyledCardTitle>
+                                            <StyledCardTitle>{product.title.substring(0, 12) + ".."}</StyledCardTitle>
                                             {product.rating.rate > 4.4 && (
                                                 <div>
                                                     <StyledBestSeller>
                                                         Best Seller
                                                     </StyledBestSeller>
-                                                    <span style={{ color: 'black', background: 'none', marginLeft: '0.5rem' }}>in {product.category}</span>
+                                                    <span style={{ color: 'black', background: 'none', marginLeft: '0.5rem' }}>in {product.category.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}  </span>
                                                 </div>
                                             )}
                                             <StyledRating rating={product.rating} />
                                             <StyledCardText>{product.description.substring(0, 75) + "..."}</StyledCardText>
                                             <StyledButtonWrapper>
                                                 <StyledPrice>${product.price}</StyledPrice>
-                                                <StyledButton to={`/products/${product.id}`} variant="primary">Add to Cart</StyledButton>
+                                                <NavLink to={`/products/${product.id}`}>
+                                                    <StyledButton variant="primary">More Details
+                                                    </StyledButton>
+                                                </NavLink>
                                             </StyledButtonWrapper>
                                         </StyledCardBody>
                                     </StyledCard>
