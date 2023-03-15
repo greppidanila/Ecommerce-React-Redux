@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import Product from './components/Product';
 import Products from './components/Products';
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <>
       <Navbar />

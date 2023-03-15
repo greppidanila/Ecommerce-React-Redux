@@ -57,4 +57,10 @@ Definí una etiqueta de enlace para el botón 'Add to Cart' en cada tarjeta, lo 
 
 Usé los componentes 'StyledCard', 'StyledCardImg', 'StyledCardBody', 'StyledCardTitle', 'StyledCardText', 'StyledButtonWrapper', 'StyledPrice', 'StyledButton', 'StyledBestSeller', 'StyledRatingWrapper' y 'StyledStar' para dar estilo a la cuadrícula y las tarjetas
 
-PROBLEMA PARA VISUALIZAR DIV E INFO DE APP EM PRODUCT.TSX.
+PROBLEMA PARA VISUALIZAR DIV E INFO DE APP EM PRODUCT.TSX. --> mal escrita la ruta en app.tsx
+
+Añadí Skeleton al loading en Product
+
+Creé la carpeta redux. Dentro de ella, agrego las carpetas "action" y "reducer".
+
+Agregué y configuré el store. También la función handleCart y su index dentro de carpeta "reducer". Luego incluí el Provider con store al index envolviendo la App.

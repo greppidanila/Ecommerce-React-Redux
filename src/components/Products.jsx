@@ -16,30 +16,10 @@ import {
     StyledStar
 } from './ProductsStyles';
 
-interface StyledRatingProps {
-    rating: {
-        rate: number;
-        count: number;
-    };
-}
-
-type Product = {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    category: string;
-    image: string;
-    rating: {
-        rate: number;
-        count: number;
-    };
-};
-
-const Products: React.FC = () => {
-    const [data, setData] = useState<Product[]>([]);
-    const [filter, setFilter] = useState<Product[]>([]);    
-    const [loading, setLoading] = useState<boolean>(false);
+const Products = () => {
+    const [data, setData] = useState([]);
+    const [filter, setFilter] = useState([]);    
+    const [loading, setLoading] = useState(false);
     let componentMounted = true;
 
     useEffect(() => {
@@ -59,7 +39,7 @@ const Products: React.FC = () => {
         getProducts();
     }, []);
 
-    const Loading: React.FC = () => {
+    const Loading = () => {
         return (
             <>
                 {[...Array(4)].map((_, index) => (
@@ -71,13 +51,13 @@ const Products: React.FC = () => {
         );
     };
 
-    const filterProduct = (cat: string) => {
+    const filterProduct = (cat) => {
         const updatedList = data.filter(({ category }) => category === cat);
         setFilter(updatedList);
     };
 
 
-    const StyledRating: React.FC<StyledRatingProps> = ({ rating: { rate, count } }) => {
+    const StyledRating = ({ rating: { rate, count } }) => {
         const roundedRate = Math.round(rate);
         const stars = Array.from({ length: 5 }, (_, index) => (
             <StyledStar key={index} style={{ color: index < roundedRate ? 'gold' : 'gray' }}>
@@ -92,7 +72,7 @@ const Products: React.FC = () => {
         );
     };
 
-    const ShowProducts: React.FC = () => {
+    const ShowProducts = () => {
         const bestSellers = data.filter((product) => product.rating.rate > 4.4);
         return (
             <>

@@ -3,7 +3,7 @@ import React from 'react'
 import Background from "../assets/bg.png";
 import Products from './Products';
 
-const Home: React.FC = () => {
+const Home = () => {
     return (
         <div className='hero'>
             <div className="card bg-dark text-white border-0">
