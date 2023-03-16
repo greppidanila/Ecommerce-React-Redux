@@ -13,6 +13,7 @@ const Product = () => {
 
   const dispatch = useDispatch();
   const addProduct = (product) => {
+    // dispatch envía la acción a la tienda de Redux, la tienda de Redux manejará la acción y actualizará el estado de la aplicación de manera global.
     dispatch(addCart(product));
   };
 

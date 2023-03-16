@@ -17,21 +17,33 @@ import {
 } from './ProductsStyles';
 
 const Products = () => {
+    //data es una lista vacía al principio y se llena con la información de los productos de la API después de que el componente se monta. 
     const [data, setData] = useState([]);
-    const [filter, setFilter] = useState([]);    
+    // filter también es una lista vacía al principio, pero se actualiza para mostrar los productos seleccionados por el usuario.
+    const [filter, setFilter] = useState([]);  
+    //loading se establece en false al principio y se cambia a true mientras se cargan los datos de la API.
     const [loading, setLoading] = useState(false);
+    //agregado al DOM, se ha creado el componente y se ha puesto en su lugar dentro de la página web.
     let componentMounted = true;
 
+    //´useEffect´ permite ejecutar código en momentos específicos del ciclo de vida de un componente >> Obtener los datos de la API cuando el componente se monta por primera vez y actualizar los estados data y filter con los datos obtenidos.
     useEffect(() => {
+        //´async´ es para manejar operaciones que pueden tardar un poco en completarse, indica que no debemos esperar una respuesta inmediata.
         const getProducts = async () => {
+            //establece loading en true mientras se cargan los datos
             setLoading(true);
+            // await hace que la función ESPERE HASTA que se reciba una respuesta de la API antes de continuar con la ejecución.
             const response = await fetch('https://fakestoreapi.com/products');
             if (componentMounted) {
+                //response.clone().json() actualiza y convierte la respuesta de la API en formato JSON.
                 setData(await response.clone().json());
+                //actualiza pero hace una copia 
                 setFilter(await response.json());
+                //establece en false después de que se hayan cargado los datos.
                 setLoading(false);
             }
             return () => {
+                //eliminar del dom, para evitar que se realicen cambios en el componente después de que se haya desmontado => es decir, se hayan cargado los datos.
                 // eslint-disable-next-line react-hooks/exhaustive-deps
                 componentMounted = false;
             };
@@ -43,6 +55,7 @@ const Products = () => {
         return (
             <>
                 {[...Array(4)].map((_, index) => (
+                    // efecto de carga mientras se cargan los datos.
                     <SkeletonCol className="col-md-3" key={index}>
                         <Skeleton height={350} />
                     </SkeletonCol>
@@ -50,7 +63,8 @@ const Products = () => {
             </>
         );
     };
-
+    
+    //actualiza el estado filter para mostrar los productos de una categoría específica seleccionada por el usuario.
     const filterProduct = (cat) => {
         const updatedList = data.filter(({ category }) => category === cat);
         setFilter(updatedList);
