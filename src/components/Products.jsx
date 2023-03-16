@@ -23,7 +23,7 @@ const Products = () => {
     const [filter, setFilter] = useState([]);  
     //loading se establece en false al principio y se cambia a true mientras se cargan los datos de la API.
     const [loading, setLoading] = useState(false);
-    //agregado al DOM, se ha creado el componente y se ha puesto en su lugar dentro de la página web.
+    //agregado al DOM, se ha creado el componentey se ha puesto en su lugar dentro de la página web.
     let componentMounted = true;
 
     //´useEffect´ permite ejecutar código en momentos específicos del ciclo de vida de un componente >> Obtener los datos de la API cuando el componente se monta por primera vez y actualizar los estados data y filter con los datos obtenidos.
@@ -158,3 +158,4 @@ const Products = () => {
 };
 
 export default Products;
+

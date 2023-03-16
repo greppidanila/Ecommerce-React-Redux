@@ -3,11 +3,14 @@ import {
   Routes, Route
 } from 'react-router-dom';
 import "./App.css"
-import Cart from './components/Cart';
-import Home from './components/Home';
-import Navbar from './components/Navbar';
-import Product from './components/Product';
-import Products from './components/Products';
+import About from '../src/components/About';
+import Cart from '../src/components/Cart';
+import Footer from '../src/components/Footer';
+import Home from '../src/components/Home';
+import Navbar from '../src/components/Navbar';
+import Product from '../src/components/Product';
+import Products from '../src/components/Products';
+import Contact from '../src/components/Contact';
 
 const App = () => {
   return (
@@ -18,7 +21,10 @@ const App = () => {
         <Route path="/products" element={<Products/>} />
         <Route path="/products/:id" element={<Product/>} />
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/contact" element={<Contact/>} />
       </Routes>
+      <Footer/>
     </>
   );
 };

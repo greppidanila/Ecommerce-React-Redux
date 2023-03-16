@@ -64,3 +64,5 @@ Añadí Skeleton al loading en Product
 Creé la carpeta redux. Dentro de ella, agrego las carpetas "action" y "reducer".
 
 Agregué y configuré el store. También la función handleCart y su index dentro de carpeta "reducer". Luego incluí el Provider con store al index envolviendo la App.
+
+npm install react-hook-form 

@@ -15,31 +15,38 @@ const Cart = () => {
   const handleDel = (product) => {
     dispatch(delCart(product));
   };
-  
+
+  const handleClose = (product) => {
+    dispatch(delCart(product));
+  };
+
   console.log(handleCart);
 
-  return (
-    <div className="container py-5">
-      {handleCart.length === 0 ? (
-        <div className="row py-5">
-          <div className="col-md-12">
-            <h3>Your Cart is Empty</h3>
-          </div>
-        </div>
-      ) : (
+  const CartProducts = (product) => {
+    return (
         <div className="row py-5">
           {handleCart.map((product) => (
             <div className="col-md-12" key={product.id}>
-              <div className="px-4 my-5 bg-light rounded-3 py-5">
-                <div className="container py-4">
+              <div className="px-4 mb-4 py-4 bg-light rounded-3">
+                <div className="container">
+                <button onClick={()=> handleClose(product)} className= "btn-close float-end" aria-label="Close">
+                </button>
                   <div className="row justify-content-center">
                     <div className="col-md-4">
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        height="200px"
-                        width="180px"
-                      />
+                      <div>
+                        <img
+                          src={product.image}
+                          alt={product.title}
+                          height="240px"
+                          width="220px"
+                          style={{
+                            borderRadius: "10%",
+                            border: "1px solid white",
+                            backgroundColor: "white",
+                            padding: "15px",
+                          }}
+                        />
+                      </div>
                     </div>
                     <div className="col-md-4">
                       <h3>{product.title}</h3>
@@ -65,15 +72,25 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          <div className="col-md-12">
-            <NavLink
-              to="/checkout"
-              className="btn btn-outline-dark mb-5 w-25 mx-auto"
-            >
+          <div className="col-md-12 d-flex">
+            <NavLink to="/checkout" className="btn btn-dark mb-5 w-25 mx-auto ">
               Proceed to Checkout
             </NavLink>
           </div>
         </div>
+    )
+  }
+
+  return (
+    <div className="container py-5 ">
+      {handleCart.length === 0 ? (
+        <div className="row py-5">
+          <div className="col-md-12">
+            <h3>Your Cart is Empty</h3>
+          </div>
+        </div>
+      ) : (
+            <CartProducts/>
       )}
     </div>
   );
