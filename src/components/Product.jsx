@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import { addCart } from "../redux/action";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/dist/sweetalert2.css";
+import { Col, Container } from "react-bootstrap";
 
 const Product = () => {
   const { id } = useParams();
@@ -58,15 +59,15 @@ const Product = () => {
   const ShowProduct = () => {
     return (
       <>
-        <div className="col-md-6">
+        <Col xs={12} md={6} className="mb-4">
           <img
             src={product.image}
             alt={product.title}
             height="400px"
             width="400px"
           />
-        </div>
-        <div className="col-md-6">
+        </Col>
+        <Col xs={12} md={6} className="mb-4">
           <h4 className="text-uppercase text-black-50"> {product.category} </h4>
           <h1 className="display-5">{product.title}</h1>
           <p className="lead fw-bolder">
@@ -89,7 +90,7 @@ const Product = () => {
               Go to Cart
             </StyledButton>
           </NavLink>
-        </div>
+        </Col>
       </>
     );
   };
@@ -97,11 +98,11 @@ const Product = () => {
   return (
     <>
       <div>
-        <div className="container py-5">
+        <Container className="container py-5">
           <div className="row py-5">
             {loading ? <Loading /> : <ShowProduct />}
           </div>
-        </div>
+        </Container>
       </div>
     </>
   );

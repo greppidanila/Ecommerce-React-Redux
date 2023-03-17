@@ -9,7 +9,7 @@ const CustomNavbar = () => {
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
-        <div className="d-flex align-items-center col-md-6">
+        <div className="d-flex align-items-center col-lg-6">
           <Navbar.Brand
             as={NavLink}
             to="/"
@@ -24,7 +24,7 @@ const CustomNavbar = () => {
             <Nav.Link
               as={NavLink}
               to="/"
-              activeclassname="active"
+              activeClassName="active"
               exact
               className="Nav-link fw-bold"
             >
@@ -33,7 +33,7 @@ const CustomNavbar = () => {
             <Nav.Link
               as={NavLink}
               to="/products"
-              activeclassname="active"
+              activeClassName="active"
               className="Nav-link"
             >
               Products
@@ -41,7 +41,7 @@ const CustomNavbar = () => {
             <Nav.Link
               as={NavLink}
               to="/about"
-              activeclassname="active"
+              activeClassName="active"
               className="Nav-link"
             >
               About
@@ -49,15 +49,15 @@ const CustomNavbar = () => {
             <Nav.Link
               as={NavLink}
               to="/contact"
-              activeclassname="active"
+              activeClassName="active"
               className="Nav-link"
             >
               Contact
             </Nav.Link>
           </Nav>
           <Nav>
-            <Button variant="primary" rounded shadow>
-              <NavDropdown 
+            <Button variant="primary" rounded shadow className="cart-button" style={{width: "fit-content"}}>
+              <NavDropdown
                 title={
                   <span className="text-white">
                     <i className="fa fa-shopping-cart me-1"></i>
