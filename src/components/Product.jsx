@@ -5,6 +5,8 @@ import { NavLink } from "react-router-dom";
 import { StyledButton } from "./ProductsStyles";
 import Skeleton from "react-loading-skeleton";
 import { addCart } from "../redux/action";
+import Swal from "sweetalert2/dist/sweetalert2.js";
+import "sweetalert2/dist/sweetalert2.css";
 
 const Product = () => {
   const { id } = useParams();
@@ -15,6 +17,13 @@ const Product = () => {
   const addProduct = (product) => {
     // dispatch envía la acción a la tienda de Redux, la tienda de Redux manejará la acción y actualizará el estado de la aplicación de manera global.
     dispatch(addCart(product));
+
+    Swal.fire({
+      icon: "success",
+      title: "Product added to cart",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   useEffect(() => {
@@ -58,10 +67,7 @@ const Product = () => {
           />
         </div>
         <div className="col-md-6">
-          <h4 className="text-uppercase text-black-50">
-            {" "}
-            {product.category}{" "}
-          </h4>
+          <h4 className="text-uppercase text-black-50"> {product.category} </h4>
           <h1 className="display-5">{product.title}</h1>
           <p className="lead fw-bolder">
             {" "}

@@ -11,6 +11,7 @@ import Navbar from '../src/components/Navbar';
 import Product from '../src/components/Product';
 import Products from '../src/components/Products';
 import Contact from '../src/components/Contact';
+import Checkout from './components/Checkout';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/cart" element={<Cart/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path='/checkout' element={<Checkout/>} />
       </Routes>
       <Footer/>
     </>

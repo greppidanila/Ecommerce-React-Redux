@@ -1,78 +1,81 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Container, Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 
-const Navbar = ( ) => {
+const CustomNavbar = () => {
   const state = useSelector((state) => state.handleCart);
+
   return (
-    <>
-      <nav className="sticky-top navbar navbar-expand-lg navbar-light py-3 shadow-sm bg-white">
-        <div className="container">
-          <NavLink className="navbar-brand fw-bold fs-4" to="/">
-            SHEIN
-          </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+    <Navbar bg="light" expand="lg" sticky="top">
+      <Container>
+        <div className="d-flex align-items-center col-md-6">
+          <Navbar.Brand
+            as={NavLink}
+            to="/"
+            className="fw-bold fs-1 Navbar-brand"
           >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link active fw-bold"
-                  aria-current="page"
-                  to="/"
-                >
-                  Home
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/products">
-                  Products
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/about">
-                  About
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
-                  Contact
-                </NavLink>
-              </li>
-            </ul>
-            <form className="d-flex">
-              <input
-                className="form-control me-2 border-0 "
-                style={{ boxShadow: "0 .125rem .25rem rgba(0,0,0,.300)" }}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-            </form>
-            <div className="button">
-              <NavLink
-                to="/cart"
-                className="btn btn-outline-dark border-0  ms-2"
-                style={{ boxShadow: "0 .125rem .25rem rgba(0,0,0,.300)" }}
-              >
-                <i className="fa fa-shopping-cart me-1"></i>
-                Cart ({state.length})
-              </NavLink>
-            </div>
-          </div>
+            SHEIN
+          </Navbar.Brand>
         </div>
-      </nav>
-    </>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link
+              as={NavLink}
+              to="/"
+              activeclassname="active"
+              exact
+              className="Nav-link fw-bold"
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/products"
+              activeclassname="active"
+              className="Nav-link"
+            >
+              Products
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/about"
+              activeclassname="active"
+              className="Nav-link"
+            >
+              About
+            </Nav.Link>
+            <Nav.Link
+              as={NavLink}
+              to="/contact"
+              activeclassname="active"
+              className="Nav-link"
+            >
+              Contact
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            <Button variant="primary" rounded shadow>
+              <NavDropdown 
+                title={
+                  <span className="text-white">
+                    <i className="fa fa-shopping-cart me-1"></i>
+                    Cart ({state.length})
+                  </span>
+                }
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item as={NavLink} to="/cart">
+                  View Cart
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default CustomNavbar;

@@ -2,3 +2,25 @@
 .navbar-nav a {
   font-size: 18px;
 }
+
+.Nav-link {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.Nav-link:hover {
+  transform: scale(1.1);
+}
+
+.Nav-link.active {
+  font-weight: bold;
+}
+
+
+/* Footer */
+
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
